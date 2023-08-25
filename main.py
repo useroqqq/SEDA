@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(300, 400)
+        MainWindow.resize(300, 400)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.centralwidget)
@@ -31,6 +31,11 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.l1 = QtWidgets.QFrame(parent=self.verticalLayoutWidget)
+        self.l1.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.l1.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        self.l1.setObjectName("l1")
+        self.verticalLayout.addWidget(self.l1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.lchb1 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
@@ -56,6 +61,11 @@ class Ui_MainWindow(object):
         self.lk1.setObjectName("lk1")
         self.horizontalLayout_4.addWidget(self.lk1)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
+        self.l2 = QtWidgets.QFrame(parent=self.verticalLayoutWidget)
+        self.l2.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.l2.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        self.l2.setObjectName("l2")
+        self.verticalLayout.addWidget(self.l2)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.lchb2 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
@@ -80,6 +90,11 @@ class Ui_MainWindow(object):
         self.lk2.setObjectName("lk2")
         self.horizontalLayout_5.addWidget(self.lk2)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
+        self.l3 = QtWidgets.QFrame(parent=self.verticalLayoutWidget)
+        self.l3.setFrameShape(QtWidgets.QFrame.Shape.HLine)
+        self.l3.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        self.l3.setObjectName("l3")
+        self.verticalLayout.addWidget(self.l3)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.lchb3 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
@@ -196,10 +211,10 @@ if __name__ == "__main__":
         imap.login(username, mail_pass)
         imap.select("INBOX")
         res, msg = imap.search(None, 'ALL')
-        ids = msg[0]  # Получаем сроку номеров писем
-        id_list = ids.split()  # Разделяем ID писем
-        latest_email_id = id_list[-1]  # Берем последний ID
-        # номер письма
+        ids = msg[0]
+        id_list = ids.split()
+        latest_email_id = id_list[-1]
+
         res, msg = imap.fetch(latest_email_id, '(RFC822)')
         msg = email.message_from_bytes(msg[0][1])
 
@@ -213,7 +228,7 @@ if __name__ == "__main__":
                 mess_text_good = mess_text_good + i
 
         output_decode = quopri.decodestring(mess_text_good)
-        result = output_decode.decode('utf-8')  # конечная строка
+        result = output_decode.decode('utf-8')
 
         if pr == 1:
             pos = result.find("Коддоступа")
@@ -257,4 +272,5 @@ if __name__ == "__main__":
     timer = QtCore.QTimer()
     timer.timeout.connect(update_label)
     timer.start(1000)
+
     sys.exit(app.exec())
